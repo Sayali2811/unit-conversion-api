@@ -1,0 +1,38 @@
+@host = http://localhost:5080
+
+### Convert metres to feet (query string)
+GET {{host}}/api/v1/conversions?value=100&from=m&to=ft
+
+### Convert Celsius to Fahrenheit (request body)
+POST {{host}}/api/v1/conversions
+Content-Type: application/json
+
+{
+  "value": 100,
+  "from": "C",
+  "to": "F"
+}
+
+### Convert kilograms to pounds using a unit name
+GET {{host}}/api/v1/conversions?value=75&from=kilogram&to=lb
+
+### List all units
+GET {{host}}/api/v1/units
+
+### List units of one category
+GET {{host}}/api/v1/units?category=temperature
+
+### Error: incompatible units
+GET {{host}}/api/v1/conversions?value=1&from=m&to=kg
+
+### Error: unknown unit
+GET {{host}}/api/v1/conversions?value=1&from=parsec&to=m
+
+### Error: below absolute zero
+GET {{host}}/api/v1/conversions?value=-300&from=C&to=K
+
+### Health check
+GET {{host}}/health
+
+### OpenAPI document (Development only)
+GET {{host}}/openapi/v1.json
